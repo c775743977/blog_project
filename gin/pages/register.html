@@ -1,0 +1,64 @@
+{{ define "register.html" }}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>欢迎访问小陈博客</title>
+</head>
+<link rel="shortcut icon" href="/pages/favicon.ico">
+<script>
+  function isValidEmail(email) {
+    // 邮箱地址的正则表达式模式
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    // 使用正则表达式来匹配邮箱地址
+    return emailPattern.test(email);
+  }
+  
+  function GetEmailCode() {
+  var email = document.getElementById('email').value;
+  var username = document.getElementById('username').value;
+
+  if (isValidEmail(email)) {
+    var url = 'http://localhost:8080/sendCode?email=' + encodeURIComponent(email);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.send();
+
+    alert('验证码已发送（3分钟内重复发送无效）');
+  } else {
+    alert('请输入有效的邮箱地址');
+  }
+}
+
+</script>
+  
+<body>
+  <h1>欢迎新用户注册</h1>
+  
+  <form action="/verifyCode" method="POST">
+    <label for="username">账号：</label>
+    <input type="text" id="username" name="username" required><br><br>
+    
+    <label for="password">密码：</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="repasswd">重复密码：</label>
+    <input type="password" id="repasswd" name="repasswd" required><br><br>
+
+    <label for="email">邮箱：</label>
+    <input type="email" id="email" name="email" required>
+    <input type="button" id="btn-get" value="获取验证码" onclick="GetEmailCode()" /><br><br>
+
+    <label for="code">验证码：</label>
+    <input type="code" id="code" name="code" required><br><br>
+    
+    <input type="submit" value="注册">
+  </form>
+  <div class="msg_cont">
+    <b></b>
+    <span class="errorMsg">{{.}}</span>
+  </div>
+</body>
+</html>
+{{ end }}

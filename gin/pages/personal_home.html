@@ -1,0 +1,77 @@
+{{ define "personal_home.html" }}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>个人主页</title>
+  <link rel="shortcut icon" href="/pages/favicon.ico">
+  <style>
+    /* CSS 样式 */
+    .username {
+    float: left;
+    margin-right: 10px; /* 可根据需要调整间距 */
+  }
+    .logout {
+      float: right;
+      margin-top: 25px;
+      margin-left: 0px;
+    }
+    .profile {
+      float: left;
+      margin-top: 0px;
+      margin-right: 10px;
+    }
+    .article {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .author {
+      float: right;
+      margin-top: 10px;
+    }
+    .column {
+      float: right;
+      margin-top: 10px;
+      margin-right: 20px;
+    }
+    .delete {
+      float: right;
+      margin-top: -75px;
+      margin-right: 20px;
+    }
+    .alter {
+      float: right;
+      margin-top: -75px;
+      margin-right: -50px;
+    }
+  </style>
+  <script>
+    function LogOut() {
+      location.href = "/logout";
+      alert('已退出当前账号');
+      location.href = "/index";
+  }
+  </script>
+</head>
+<body>
+  <h1>个人主页</h1>
+  <a class="back-link" href="/index">返回上级</a>
+  <div class="username">用户: {{.Username}}</div> 
+  <input class="logout" type="button" id="btn-get" value="退出登录" onclick="LogOut()" />
+  <br><br>
+  <input type="button" id="btn-get" value="发表文章" onclick="CreateNewArticle()" /><br>
+  {{range .Articles}}
+  <div class="article">
+    <a class="title" href="./articles/{{.Column}}/{{.ID}}.html"><h2>{{.Title}}</h2></a>
+        <a class=""></a>
+      <span class="author">作者:{{.Author}}</span>
+      <span class="column">{{.Get_Column}}</span>
+      <a class="delete" href="./delete_article?id={{.ID}}"><h2>删除</h2></a>
+      <a class="alter" href="./alter_article?column={{.Column}}&id={{.ID}}"><h2>修改</h2></a>
+    </h2>
+    <p class="date">发表于{{.Date}}</p>
+  </div>
+{{end}}
+</body>
+</html>
+{{ end }}

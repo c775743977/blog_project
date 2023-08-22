@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./pbfile";
+
+message LoginReq {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginRes {
+    string cookie = 1;
+    string username = 2;
+}
+
+message RegisterReq {
+    string username = 1;
+    string password = 2;
+    string email = 3;
+    string code = 4;
+}
+
+message SendCodeReq {
+    string username = 1;
+    string email = 2;
+}
+
+message VerifyCodeReq {
+    string email = 1;
+    string username = 2;
+    string password = 3;
+    string code = 4;
+}
+
+message VerifyCodeRes {
+    int64 userid = 1;
+}
+
+message SessionReq {
+    string cookie = 1;
+}
+
+message SessionRes {
+    string name = 1;
+    string password = 2;
+    string email = 3;
+}
+
+message LogoutReq {
+    string cookie = 1;
+}
+
+service UserService {
+    rpc Login(LoginReq) returns(LoginRes);
+    rpc SendCode(SendCodeReq) returns(SendCodeReq);
+    rpc VerifyCode(VerifyCodeReq) returns(VerifyCodeRes);
+    rpc GetSession(SessionReq) returns(SessionRes);
+    rpc Logout(LogoutReq) returns(LogoutReq);
+}

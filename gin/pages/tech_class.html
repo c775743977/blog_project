@@ -1,0 +1,68 @@
+{{ define "tech_class.html" }}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>技术专区</title>
+  <link rel="shortcut icon" href="/pages/favicon.ico">
+  <style>
+    /* CSS 样式 */
+    .username {
+    float: left;
+    margin-right: 10px; /* 可根据需要调整间距 */
+  }
+    .logout {
+      float: right;
+      margin-top: 25px;
+      margin-left: 0px;
+    }
+    .profile {
+      float: left;
+      margin-top: 0px;
+      margin-right: 10px;
+    }
+    .article {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .author {
+      float: right;
+      margin-top: 10px;
+    }
+  </style>
+  <script>
+    function LogOut() {
+      location.href = "/logout";
+      alert('已退出当前账号');
+      location.href = "/index";
+  }
+
+    function CreateNewArticle() {
+        location.href = "/tech/newArticle?column=tech"
+    }
+  </script>
+</head>
+<body>
+  <h1>技术专区</h1>
+  <a class="back-link" href="/index">返回上级</a>
+  {{if .Username}}
+  <div class="username">用户: </div> 
+  <a class="profile" href="/myPage">{{.Username}}</a>
+  <input class="logout" type="button" id="btn-get" value="退出登录" onclick="LogOut()" />
+  {{else}}
+  <a class="login" href="/login">登录</a>
+  <a class="register" href="/register">注册</a>
+  {{end}}
+  <br><br>
+  <input type="button" id="btn-get" value="发表文章" onclick="CreateNewArticle()" /><br>
+  {{range .Articles}}
+  <div class="article">
+    <a class="title" href="./articles/tech/{{.ID}}.html"><h2>{{.Title}}</h2></a>
+      <span class="author">作者:{{.Author}}</span>
+    </h2>
+    <p class="date">发表于{{.Date}}</p>
+  </div>
+{{end}}
+</body>
+</html>
+{{ end }}

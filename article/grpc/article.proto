@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package column;
+
+option go_package = "./pbfile";
+
+message ArticlesReq {
+    string column = 1;
+}
+
+message Article {
+    string title = 1;
+    string author = 2;
+    string date = 3;
+    string column = 4;
+    int64 ID = 5;
+}
+
+message ArticlesRes {
+    repeated Article articles = 1;
+}
+
+message ArticleRes {
+    int64 id = 1;
+}
+
+message ArticleReq {
+    string title = 1;
+    string column = 2;
+}
+
+message CheckReq {
+    string title = 1;
+    string author = 2;
+    string column = 3;
+}
+
+message CheckRes {
+    bool exist = 1;
+}
+
+message AuthorReq {
+    string author = 1;
+}
+
+message IDReq {
+    int64 ID = 1;
+}
+
+service ArticleService {
+    rpc SaveArticleInfo(Article) returns(ArticleRes);
+    rpc GetArticlesInfo(ArticlesReq) returns(ArticlesRes);
+    rpc GetArticleInfo(ArticleReq) returns(ArticlesRes);
+    rpc CheckArtileExist(CheckReq) returns(CheckRes);
+    rpc GetArtilesByAuthor(AuthorReq) returns(ArticlesRes);
+    rpc DelArticle(IDReq) returns(IDReq);
+}

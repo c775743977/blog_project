@@ -1,0 +1,61 @@
+{{ define "index.html" }}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>博客网站</title>
+  <link rel="shortcut icon" href="/pages/favicon.ico">
+  <style>
+    /* CSS 样式 */
+  .username {
+    float: left;
+    margin-right: 10px; /* 可根据需要调整间距 */
+  }
+    .logout {
+      float: right;
+      margin-top: 25px;
+      margin-left: 0px;
+    }
+    .profile {
+      float: left;
+      margin-top: 0px;
+      margin-right: 10px;
+    }
+    .article {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+  <script>
+    function LogOut() {
+      location.href = "/logout";
+      alert('已退出当前账号');
+      location.href = "/index";
+  }
+  </script>
+</head>
+<body>
+  <h1>欢迎来到博客网站</h1>
+  {{if .}}
+  <div class="username">用户: </div> 
+  <a class="profile" href="/myPage">{{.}}</a>
+  <input class="logout" type="button" id="btn-get" value="退出登录" onclick="LogOut()" />
+  {{else}}
+  <a class="login" href="/login">登录</a>
+  <a class="register" href="/register">注册</a>
+  {{end}}
+  <br><br>
+  <div class="class">
+    <h2><a href="/tech">技术专区</a></h2>
+  </div>
+  
+  <div class="class">
+    <h2><a href="/entertainment">娱乐专区</a></h2>
+  </div>
+  
+  <div class="class">
+    <h2><a href="/exchange">交流专区</a></h2>
+  </div>
+</body>
+</html>
+{{ end }}

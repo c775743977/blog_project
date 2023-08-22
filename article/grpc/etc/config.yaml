@@ -1,0 +1,10 @@
+ListenOn:
+    host: localhost
+    port: 8001
+
+Mysql:
+    user: root
+    password: Chen@123
+    host: localhost
+    port: 3306
+    database: myblogs
